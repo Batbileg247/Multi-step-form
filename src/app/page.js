@@ -3,6 +3,61 @@
 import { useState } from "react"
 
 export default function Home() {
+  const forms = [
+    //1st page
+    {
+      id: 0,
+      name: "First name",
+      hold: "Your first name",
+      value: value,
+      err: "Нэрээ оруулна уу."
+    },
+    {
+      id: 2,
+      name: "Last name",
+      hold: "Your last name",
+      value: value,
+      err: "Овгоо оруулна уу."
+    },
+    {
+      id: 3,
+      name: "Username",
+      hold: "Your username",
+      value: value,
+      err: "Хэрэглэгчийн нэрээ оруулна уу."
+    },
+    //2nd page
+    {
+      id: 4,
+      name: "Email",
+      hold: "Your email",
+      value: value,
+      err: "Мэйл хаягаа оруулна уу."
+    },
+    {
+      id: 5,
+      name: "Phone number",
+      hold: "Your phone number",
+      value: value,
+      err: "Утасны дугаараа оруулна уу."
+    },
+        {
+      id: 6,
+      name: "Password",
+      hold: "Your password",
+      value: value,
+      err: "Нууц үгээ оруулна уу."
+    },
+    {
+      id: 7,
+      name: "Confirm password",
+      hold: "Confirm password",
+      value: value,
+      err: "Нууц үгээ давтаж оруулна уу."
+    },
+    //last page
+  ]
+
   const [value, setValue] = useState("")
 
   const click = () => {
