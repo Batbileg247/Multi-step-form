@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { FormWrapper } from "./_component/FormWrapper"
 import { UserInfoStep } from "./_component/UserInfoStep"
+import { PrivInfoStep } from "./_component/PrivInfoStep"
 
 export default function Home() {
   const [step, setStep] = useState(1)
@@ -29,7 +30,7 @@ export default function Home() {
 
   return (<FormWrapper>
         {step === 1 && <UserInfoStep handleChange={handleChange} formData={formData} handleNextStep={handleNextStep} />}
-        {step === 2 && 'step 2'}
+        {step === 2 && <PrivInfoStep handleChange={handleChange} formData={formData} handleNextStep={handleNextStep} />}
   </FormWrapper>
   );
 }

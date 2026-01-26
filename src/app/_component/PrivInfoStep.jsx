@@ -10,7 +10,7 @@ function isEmpty(obj) {
   return true;
 }
 
-export const UserInfoStep = ({ formData, handleChange, handleNextStep }) => {
+export const PrivInfoStep = ({ formData, handleChange, handleNextStep }) => {
   const { firstName, lastName, userName } = formData;
 
   const [error, setError] = useState({
