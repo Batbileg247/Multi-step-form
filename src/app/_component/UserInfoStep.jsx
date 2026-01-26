@@ -26,31 +26,25 @@ export const UserInfoStep = ({ formData, handleChange, handleNextStep }) => {
     });
   };
 
-  const formValidation = () => {
-    let newError = {};
+const formValidation = () => {
+  let newError = {};
 
-    if (firstName === "") {
-      newError["firstName"] = "hooson bj bolohgui";
-    } else if (firstName !== "") {
-      newError["firstName"] = true;
-    }
+  if (firstName === "") {
+    newError.firstName = "hooson bj bolohgui";
+  }
 
-    if (lastName === "") {
-      newError["lastName"] = "hooson bj bolohgui";
-    }else if (firstName !== "") {
-      newError["lastName"] = true;
-    }
+  if (lastName === "") {
+    newError.lastName = "hooson bj bolohgui";
+  }
 
-    if (userName === "") {
-      newError["userName"] = "hooson bj bolohgui";
-    }else if (firstName !== "") {
-      newError["userName"] = true;
-    }
+  if (userName === "") {
+    newError.userName = "hooson bj bolohgui";
+  }
 
-    const isValid = isEmpty(newError);
+  const isValid = isEmpty(newError);
 
-    return { isValid, newError };
-  };
+  return { isValid, newError };
+};
 
   const onSubmit = () => {
     const { isValid, newError } = formValidation();
@@ -59,7 +53,6 @@ export const UserInfoStep = ({ formData, handleChange, handleNextStep }) => {
       handleNextStep();
     }
 
-    console.log(isValid);
     updateError(newError);
   };
 
