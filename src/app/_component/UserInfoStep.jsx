@@ -26,48 +26,44 @@ export const UserInfoStep = ({ formData, handleChange, handleNextStep }) => {
     });
   };
 
+  const formValidation = () => {
+    function rergexTest(str) {
+      const regex = /[^\w\s]/;
+      return regex.test(str);
+    }
 
-const formValidation = () => {
+    function hasNumbers(str) {
+      return /\d/.test(str);
+    }
 
-    function rergexTest (str) {
-  const regex = /[^\w\s]/;
-  return regex.test(str);
-}
+    let newError = {};
 
-function hasNumbers(str) {
-  return /\d/.test(str);
-}
+    if (firstName === "") {
+      newError.firstName = "Хоосон байж болохгүй.";
+    } else if (rergexTest(firstName) === true) {
+      newError.firstName = "Тусгай тэмдэгт ашиглаж болохгүй.";
+    } else if (hasNumbers(firstName) === true) {
+      newError.firstName = "Тoo ашиглаж болохгүй.";
+    }
 
+    if (lastName === "") {
+      newError.lastName = "Хоосон байж болохгүй.";
+    } else if (rergexTest(lastName) === true) {
+      newError.lastName = "Тусгай тэмдэгт ашиглаж болохгүй.";
+    } else if (hasNumbers(lastName) === true) {
+      newError.lastName = "Тoo ашиглаж болохгүй.";
+    }
 
-  let newError = {};
+    if (userName === "") {
+      newError.userName = "Хоосон байж болохгүй.";
+    } else if (rergexTest(userName) === true) {
+      newError.userName = "Тусгай тэмдэгт ашиглаж болохгүй.";
+    }
 
-  if (firstName === "") {
-    newError.firstName = "Хоосон байж болохгүй.";
-  } else if (rergexTest(firstName) === true) {
-    newError.firstName = "Тусгай тэмдэгт ашиглаж болохгүй.";
-  } else if (hasNumbers(firstName) === true) {
-    newError.firstName = "Тoo ашиглаж болохгүй.";
-  }
+    const isValid = isEmpty(newError);
 
-  if (lastName === "") {
-    newError.lastName = "Хоосон байж болохгүй.";
-  } else if (rergexTest(lastName) === true) {
-    newError.lastName = "Тусгай тэмдэгт ашиглаж болохгүй.";
-  } else if (hasNumbers(lastName) === true) {
-    newError.lastName = "Тoo ашиглаж болохгүй.";
-  }
-
-
-  if (userName === "") {
-    newError.userName = "Хоосон байж болохгүй.";
-  } else if (rergexTest(userName) === true) {
-    newError.userName = "Тусгай тэмдэгт ашиглаж болохгүй.";
-  }
-
-  const isValid = isEmpty(newError);
-
-  return { isValid, newError };
-};
+    return { isValid, newError };
+  };
 
   const onSubmit = () => {
     const { isValid, newError } = formValidation();
@@ -117,7 +113,7 @@ function hasNumbers(str) {
       </div>
       <button
         onClick={onSubmit}
-        className="rounded-md cursor-pointer gap-2 flex items-center justify-center text-base font-semibold bg-[#121316] text-white w-full h-11"
+        className="rounded-md cursor-pointer gap-2 flex items-center hover:opacity-80 justify-center text-base font-semibold bg-[#121316] text-white w-full h-11"
       >
         Continue 1/3 <img className="h-5" src="/arrow.png" alt="arrow" />
       </button>
