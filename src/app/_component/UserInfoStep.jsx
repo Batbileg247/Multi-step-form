@@ -1,86 +1,22 @@
-import { useState } from "react";
 import { Input } from "./Input";
+import { userInfoValidation } from "@/utils/user-info-validation";
 
-function isEmpty(obj) {
-  for (const prop in obj) {
-    if (Object.hasOwn(obj, prop)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-export const UserInfoStep = ({ formData, handleChange, handleNextStep }) => {
-  const { firstName, lastName, userName } = formData;
-
-  const [error, setError] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
-  });
-
-  const updateError = (newError) => {
-    setError({
-      ...error,
-      ...newError,
-    });
-  };
-
-  const formValidation = () => {
-    function rergexTest(str) {
-      const regex = /[^\w\s]/;
-      return regex.test(str);
-    }
-
-    function hasNumbers(str) {
-      return /\d/.test(str);
-    }
-
-    let newError = {};
-
-    if (firstName === "") {
-      newError.firstName = "Хоосон байж болохгүй.";
-    } else if (rergexTest(firstName) === true) {
-      newError.firstName = "Тусгай тэмдэгт ашиглаж болохгүй.";
-    } else if (hasNumbers(firstName) === true) {
-      newError.firstName = "Тoo ашиглаж болохгүй.";
-    }
-
-    if (lastName === "") {
-      newError.lastName = "Хоосон байж болохгүй.";
-    } else if (rergexTest(lastName) === true) {
-      newError.lastName = "Тусгай тэмдэгт ашиглаж болохгүй.";
-    } else if (hasNumbers(lastName) === true) {
-      newError.lastName = "Тoo ашиглаж болохгүй.";
-    }
-
-    if (userName === "") {
-      newError.userName = "Хоосон байж болохгүй.";
-    } else if (rergexTest(userName) === true) {
-      newError.userName = "Тусгай тэмдэгт ашиглаж болохгүй.";
-    }
-
-    const isValid = isEmpty(newError);
-
-    return { isValid, newError };
-  };
+export const UserInfoStep = ({
+  formData,
+  onChange,
+  handleNextStep,
+  updateError,
+  error,
+}) => {
 
   const onSubmit = () => {
-    const { isValid, newError } = formValidation();
+    const { isValid, newError } = userInfoValidation(formData);
 
     if (isValid) {
       handleNextStep();
     }
 
     updateError(newError);
-  };
-
-  const onChange = (event) => {
-    setError({
-      ...error,
-      [event.target.name]: "",
-    });
-    handleChange(event);
   };
 
   return (
@@ -91,7 +27,7 @@ export const UserInfoStep = ({ formData, handleChange, handleNextStep }) => {
           handleChange={onChange}
           nameholder="First name"
           placeholder="Your first name"
-          value={firstName}
+          value={formData.firstName}
           name="firstName"
         />
         <Input
@@ -99,7 +35,7 @@ export const UserInfoStep = ({ formData, handleChange, handleNextStep }) => {
           handleChange={onChange}
           nameholder="Last name"
           placeholder="Your last name"
-          value={lastName}
+          value={formData.lastName}
           name="lastName"
         />
         <Input
@@ -107,7 +43,7 @@ export const UserInfoStep = ({ formData, handleChange, handleNextStep }) => {
           handleChange={onChange}
           nameholder="Username"
           placeholder="Your username"
-          value={userName}
+          value={formData.userName}
           name="userName"
         />
       </div>

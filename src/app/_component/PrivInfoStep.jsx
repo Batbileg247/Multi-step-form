@@ -1,104 +1,23 @@
-import { useState } from "react";
+import { privInfoValidation } from "@/utils/priv-info-validation";
 import { Input } from "./Input";
-
-function isEmpty(obj) {
-  for (const prop in obj) {
-    if (Object.hasOwn(obj, prop)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-function isNumber(str) {
-  return /\D/.test(str);
-}
-
-const isLengthValid = (str, min, max) => {
-  return str.length >= min && str.length <= max;
-};
-
-function emailTest(email) {
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return !emailPattern.test(email);
-}
-
-function confirmation(pass, password) {
-  return pass !== password;
-}
 
 export const PrivInfoStep = ({
   formData,
-  handleChange,
+  onChange,
+  error,
+  updateError,
   handleNextStep,
   onPrev,
 }) => {
-  const { email, phoneNumber, password, confirmPassword } = formData;
-
-  const [error, setError] = useState({
-    email: "",
-    phoneNumber: "",
-    password: "",
-    confirmPassword: "",
-  });
-
-  const updateError = (newError) => {
-    setError({
-      ...error,
-      ...newError,
-    });
-  };
-
-  const formValidation = () => {
-    let newError = {};
-
-    if (email === "") {
-      newError.email = "Хоосон байж болохгүй.";
-    } else if (emailTest(email) === true) {
-      newError.email = "Тусгай тэмдэгт ашиглаж болохгүй.";
-    }
-
-    if (phoneNumber === "") {
-      newError.phoneNumber = "Хоосон байж болохгүй.";
-    } else if (isNumber(phoneNumber) === true) {
-      newError.phoneNumber = "Тусгай тэмдэгт ашиглаж болохгүй.";
-    } else if (!isLengthValid(phoneNumber, 8, 8) === true) {
-      newError.phoneNumber = "Утасны дугаарын урт буруу байна.";
-    }
-
-    if (password === "") {
-      newError.password = "Хоосон байж болохгүй.";
-    } else if (!isLengthValid(password, 6, 10)) {
-      newError.password = "6-c дээш тэмдэгт байх ёстой.";
-    }
-
-    if (confirmPassword === "") {
-      newError.confirmPassword = "Хоосон байж болохгүй.";
-    } else if (confirmation(confirmPassword, password)) {
-      newError.confirmPassword = "Таны оруулсан нууц үг таарахгүй байна.";
-    }
-
-    const isValid = isEmpty(newError);
-
-    return { isValid, newError };
-  };
 
   const onSubmit = () => {
-    const { isValid, newError } = formValidation();
+    const { isValid, newError } = privInfoValidation(formData);
 
     if (isValid) {
       handleNextStep();
     }
 
     updateError(newError);
-  };
-
-  const onChange = (event) => {
-    setError({
-      ...error,
-      [event.target.name]: "",
-    });
-    handleChange(event);
   };
 
   return (
@@ -109,7 +28,7 @@ export const PrivInfoStep = ({
           handleChange={onChange}
           nameholder="Email"
           placeholder="Your email"
-          value={email}
+          value={formData.email}
           name="email"
         />
         <Input
@@ -117,7 +36,7 @@ export const PrivInfoStep = ({
           handleChange={onChange}
           nameholder="Phone number"
           placeholder="Your phone number"
-          value={phoneNumber}
+          value={formData.phoneNumber}
           name="phoneNumber"
         />
         <Input
@@ -125,7 +44,7 @@ export const PrivInfoStep = ({
           handleChange={onChange}
           nameholder="Password"
           placeholder="Your password"
-          value={password}
+          value={formData.password}
           name="password"
           type="password"
         />
@@ -134,7 +53,7 @@ export const PrivInfoStep = ({
           handleChange={onChange}
           nameholder="Confirm password"
           placeholder="confirm password"
-          value={confirmPassword}
+          value={formData.confirmPassword}
           name="confirmPassword"
           type="password"
         />

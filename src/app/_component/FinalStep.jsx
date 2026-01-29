@@ -1,87 +1,39 @@
-import { useState } from "react";
 import { Input } from "./Input";
-
-function isEmpty(obj) {
-  for (const prop in obj) {
-    if (Object.hasOwn(obj, prop)) {
-      return false;
-    }
-  }
-  return true;
-}
+import { useState } from "react";
+import { finalValidation } from "@/utils/final-info-validation";
 
 export const FinalStep = ({
   formData,
-  handleChange,
+  onChange,
+  error,
+  updateError,
   handleNextStep,
   onPrev,
 }) => {
-  const { birthDay, pfpImage } = formData;
-
-  const [error, setError] = useState({
-    birthDay: "",
-    pfpImage: "",
-  });
 
   const [file, setFile] = useState(null);
 
   const [preview, setPreview] = useState(null);
+
   const handleFileChange = (e) => {
-    setError((prev) => ({ ...prev, [e.target.name]: "" }));
+    updateError({ [e.target.name]: "" });
+
     const file = e.target.files[0];
 
     const url = URL.createObjectURL(file);
-    console.log(url);
 
     setFile(file);
     setPreview(url);
   };
 
-  const updateError = (newError) => {
-    setError({
-      ...error,
-      ...newError,
-    });
-  };
-
-  const formValidation = () => {
-    const targetYear = birthDay.split("-")[0];
-
-    const nowYear = new Date().getFullYear();
-
-    let newError = {};
-
-    if (birthDay === "") {
-      newError.birthDay = "Хоосон байж болохгүй.";
-    } else if (nowYear - targetYear <= 18) {
-      newError.birthDay = "Та 18 ба түүнээс дээш настай байх ёстой.";
-    }
-
-    if (file === null) {
-      newError.pfpImage = "Хоосон байж болохгүй.";
-    }
-
-    const isValid = isEmpty(newError);
-
-    return { isValid, newError };
-  };
-
   const onSubmit = () => {
-    const { isValid, newError } = formValidation();
+    const { isValid, newError } = finalValidation(formData, file);
 
     if (isValid) {
       handleNextStep();
     }
 
     updateError(newError);
-  };
-
-  const onChange = (event) => {
-    setError({
-      ...error,
-      [event.target.name]: "",
-    });
-    handleChange(event);
   };
 
   const imgCancel = () => {
@@ -96,7 +48,7 @@ export const FinalStep = ({
           handleChange={onChange}
           nameholder="Date of birth"
           placeholder="Your first name"
-          value={birthDay}
+          value={formData.birthDay}
           name="birthDay"
           type="date"
         />
@@ -129,7 +81,7 @@ export const FinalStep = ({
                   type="file"
                   onChange={handleFileChange}
                   name="pfpImage"
-                  value={pfpImage}
+                  value={formData.pfpImage}
                 />
                 <div className="absolute gap-2 flex flex-col z-0 items-center">
                   <img
