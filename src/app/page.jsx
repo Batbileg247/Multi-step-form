@@ -19,7 +19,7 @@ const initialValue = {
 };
 
 export default function Home() {
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
 
   const [formData, setFormData] = useState(initialValue);
   const [error, setError] = useState(initialValue);
