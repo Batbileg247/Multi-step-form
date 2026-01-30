@@ -5,6 +5,7 @@ import { FormWrapper } from "./_component/FormWrapper";
 import { UserInfoStep } from "./_component/UserInfoStep";
 import { PrivInfoStep } from "./_component/PrivInfoStep";
 import { FinalStep } from "./_component/FinalStep";
+import { motion } from "framer-motion";
 
 const initialValue = {
   firstName: "",
@@ -52,37 +53,44 @@ export default function Home() {
   };
 
   return (
-    <FormWrapper>
-      {step === 1 && (
-        <UserInfoStep
-          onChange={onChange}
-          formData={formData}
-          error={error}
-          handleNextStep={handleNextStep}
-          updateError={updateError}
-        />
-      )}
-      {step === 2 && (
-        <PrivInfoStep
-          onChange={onChange}
-          formData={formData}
-          error={error}
-          handleNextStep={handleNextStep}
-          onPrev={onPrev}
-          updateError={updateError}
-        />
-      )}
-      {step === 3 && (
-        <FinalStep
-          onChange={onChange}
-          formData={formData}
-          error={error}
-          handleNextStep={handleNextStep}
-          onPrev={onPrev}
-          updateError={updateError}
-        />
-      )}
-      {step === 4 && <div>Hi this is 4 step</div>}
-    </FormWrapper>
+    <motion.div
+      key={step}
+      initial={{ opacity: 0, x: 80 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{duration: 0.5 }}
+    >
+      <FormWrapper>
+        {step === 1 && (
+          <UserInfoStep
+            onChange={onChange}
+            formData={formData}
+            error={error}
+            handleNextStep={handleNextStep}
+            updateError={updateError}
+          />
+        )}
+        {step === 2 && (
+          <PrivInfoStep
+            onChange={onChange}
+            formData={formData}
+            error={error}
+            handleNextStep={handleNextStep}
+            onPrev={onPrev}
+            updateError={updateError}
+          />
+        )}
+        {step === 3 && (
+          <FinalStep
+            onChange={onChange}
+            formData={formData}
+            error={error}
+            handleNextStep={handleNextStep}
+            onPrev={onPrev}
+            updateError={updateError}
+          />
+        )}
+        {step === 4 && <div>Hi this is 4 step</div>}
+      </FormWrapper>
+    </motion.div>
   );
 }

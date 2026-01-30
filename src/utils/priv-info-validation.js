@@ -23,27 +23,27 @@ export const privInfoValidation = (formData) => {
   let newError = {};
 
   if (email === "") {
-    newError.email = "Хоосон байж болохгүй.";
+    newError.email = "Мэйл хаягаа оруулна уу.";
   } else if (emailTest(email) === true) {
-    newError.email = "Тусгай тэмдэгт ашиглаж болохгүй.";
+    newError.email = "Зөв мэйл хаягаа оруулна уу.";
   }
 
   if (phoneNumber === "") {
-    newError.phoneNumber = "Хоосон байж болохгүй.";
+    newError.phoneNumber = "Утасны дугаараа оруулна уу.";
   } else if (isNumber(phoneNumber) === true) {
-    newError.phoneNumber = "Тусгай тэмдэгт ашиглаж болохгүй.";
+    newError.phoneNumber = "Зөв утасны дугаар оруулна уу.";
   } else if (!isLengthValid(phoneNumber, 8, 8) === true) {
     newError.phoneNumber = "Утасны дугаарын урт буруу байна.";
   }
 
   if (password === "") {
-    newError.password = "Хоосон байж болохгүй.";
+    newError.password = "Нууц үгээ оруулна уу.";
   } else if (!isLengthValid(password, 6, 10)) {
     newError.password = "6-c дээш тэмдэгт байх ёстой.";
   }
 
   if (confirmPassword === "") {
-    newError.confirmPassword = "Хоосон байж болохгүй.";
+    newError.confirmPassword = "Нууц үгээ давтаж оруулна уу.";
   } else if (confirmation(confirmPassword, password)) {
     newError.confirmPassword = "Таны оруулсан нууц үг таарахгүй байна.";
   }

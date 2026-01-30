@@ -15,7 +15,7 @@ export const userInfoValidation = (formData) => {
   let newError = {};
 
   if (firstName === "") {
-    newError.firstName = "Хоосон байж болохгүй.";
+    newError.firstName = "Нэрээ оруулна уу.";
   } else if (rergexTest(firstName) === true) {
     newError.firstName = "Тусгай тэмдэгт ашиглаж болохгүй.";
   } else if (hasNumbers(firstName) === true) {
@@ -23,7 +23,7 @@ export const userInfoValidation = (formData) => {
   }
 
   if (lastName === "") {
-    newError.lastName = "Хоосон байж болохгүй.";
+    newError.lastName = "Овгоо оруулна уу.";
   } else if (rergexTest(lastName) === true) {
     newError.lastName = "Тусгай тэмдэгт ашиглаж болохгүй.";
   } else if (hasNumbers(lastName) === true) {
@@ -31,7 +31,7 @@ export const userInfoValidation = (formData) => {
   }
 
   if (userName === "") {
-    newError.userName = "Хоосон байж болохгүй.";
+    newError.userName = "Хэрэглэгчийн нэрээ оруулна уу.";
   } else if (rergexTest(userName) === true) {
     newError.userName = "Тусгай тэмдэгт ашиглаж болохгүй.";
   }
